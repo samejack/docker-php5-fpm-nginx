@@ -1,0 +1,47 @@
+server {
+    listen 80;
+
+    server_name localhost;
+
+    root /usr/share/nginx/html;
+
+    index index.html index.php index.htm;
+
+    access_log /var/log/nginx/access.log server_format;
+    error_log /var/log/nginx/error.log;
+
+    server_tokens off;
+    proxy_pass_header Server;
+
+    proxy_intercept_errors on;
+    proxy_buffering off;
+
+    # set expiration of assets to MAX for caching
+    location ~* \.(ico|css|js|gif|jpe?g|png|ogg|ogv|svg|svgz|eot|otf|woff)(\?.+)?$ {
+        expires max;
+        log_not_found off;
+        try_files $uri $uri/ /index.php;
+    }
+
+    location /api {
+        # Check if a file exists, or route it to index.php.
+        try_files $uri $uri/ /api/index.php;
+    }
+
+    location ~* \.php$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_split_path_info ^(.+\.php)(.*)$;
+        fastcgi_connect_timeout 60s;
+        fastcgi_send_timeout 120s;
+        fastcgi_read_timeout 600s;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 256 128k;
+        fastcgi_busy_buffers_size 256k;
+        fastcgi_temp_file_write_size 256k;
+        fastcgi_intercept_errors on;
+        fastcgi_keep_conn on;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
