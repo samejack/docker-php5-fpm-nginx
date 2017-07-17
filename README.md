@@ -25,5 +25,5 @@ sudo docker run -e 'RAM=2g' -p 8080:80 -d samejack/php5-fpm-nginx
 ```
 git clone https://github.com/samejack/docker-php5-fpm-nginx
 cd docker-php5-fpm-nginx
-sudo docker build samejack/php5-fpm-nginx ./
+sudo docker build -t samejack/php5-fpm-nginx ./
 ```
