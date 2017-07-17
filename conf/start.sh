@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $RAM != "" ]; then
+if [ "${RAM}" != "" ]; then
   echo "Setup RAM: $RAM static process for php-fpm"
   cp /tmp/www-${RAM}.conf /etc/php5/fpm/pool.d/www.conf
 else

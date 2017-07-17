@@ -14,6 +14,15 @@ RUN apt-get -y install nginx nginx-full && \
     apt-get -y install php5-fpm php5-mysqlnd php5-curl php5-gd php5-mcrypt php5-tidy php5-mongo php5-gearman php5-cli php5-gmp php5-geoip php5-ldap pwgen
 RUN apt-get -y install supervisor
 
+# Remove and clean
+RUN apt-get remove --purge -y software-properties-common && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    apt-get autoclean && \
+    echo -n > /var/lib/apt/extended_states && \
+    rm -rf /usr/share/man/?? && \
+    rm -rf /usr/share/man/??_*
+
 # Add config files
 RUN rm -Rf /etc/nginx/nginx.conf && \
     rm -Rf /etc/nginx/sites-available/default && \
@@ -25,23 +34,17 @@ ADD conf/default      /etc/nginx/sites-available/default
 ADD conf/php.ini      /etc/php5/fpm/php.ini
 ADD conf/php-fpm.conf /etc/php5/fpm/php-fpm.conf
 ADD conf/www.conf     /etc/php5/fpm/pool.d/www.conf
-
-# init supervisor
-RUN rm -Rf /etc/supervisord.conf
-ADD conf/supervisord.conf   /etc/supervisor/supervisord.conf
-ADD conf/start.sh /start.sh
 ADD conf/www-2g.conf  /tmp
 ADD conf/www-4g.conf  /tmp
 ADD conf/www-8g.conf  /tmp
 ADD conf/www-16g.conf /tmp
 
-RUN apt-get remove --purge -y software-properties-common && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    apt-get autoclean && \
-    echo -n > /var/lib/apt/extended_states && \
-    rm -rf /usr/share/man/?? && \
-    rm -rf /usr/share/man/??_*
+# init supervisor
+RUN rm -Rf /etc/supervisord.conf
+ADD conf/supervisord.conf   /etc/supervisor/supervisord.conf
+ADD conf/sv-nginx.conf      /etc/supervisor/conf.d
+ADD conf/sv-php5-fpm.conf   /etc/supervisor/conf.d
+ADD conf/start.sh /start.sh
 
 # Expose Ports
 EXPOSE 80 9001
