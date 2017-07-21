@@ -16,7 +16,7 @@ sudo docker run -v `pwd`/html:/usr/share/nginx/html -p 8080:80 -d samejack/php5-
 sudo docker run -p 8080:80 -p 9001:9001 -d samejack/php5-fpm-nginx
 ```
 
-### Start with static fpm process by mamory
+### Start with static fpm process by memory
 ```
 sudo docker run -e 'RAM=2g' -p 8080:80 -d samejack/php5-fpm-nginx
 ```
