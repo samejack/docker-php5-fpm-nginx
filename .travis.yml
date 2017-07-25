@@ -1,0 +1,15 @@
+
+language: bash
+services: docker
+
+install:
+  - git clone https://github.com/samejack/docker-php5-fpm-nginx
+
+before_script:
+  - image="samejack/php5-fpm-nginx"
+
+script:
+  - travis_retry docker build -t "$image" .
+
+after_script:
+  - docker images
