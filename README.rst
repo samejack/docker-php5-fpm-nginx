@@ -2,15 +2,21 @@
 docker-php5-fpm-nginx
 ***********************************
 
-Overview
------------------------------------
-
 .. image:: https://img.shields.io/badge/license-APACHE-blue.svg
    :target: http://www.apache.org/licenses/LICENSE-2.0
-   
+
+.. image:: https://travis-ci.org/samejack/docker-php5-fpm-nginx.svg?branch=master
+   :target: https://travis-ci.org/samejack/docker-php5-fpm-nginx
+
+.. image:: https://img.shields.io/docker/build/samejack/php5-fpm-nginx.svg
+   :target: https://hub.docker.com/r/samejack/php5-fpm-nginx/
+
+
+Overview
+-----------------------------------
+  
 This docker image include php5-fpm and nginx based-on Ubuntu Server 14.04 LTS. The configuration of PHP-FPM is forward php from TCP 9000 port which can be get stable high number of connections.
 
-[Docker Cloud](https://hub.docker.com/r/samejack/php5-fpm-nginx/)
 
 Getting and Start
 -----------------------------------
