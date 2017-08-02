@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get upgrade -y
 RUN apt-get -y install software-properties-common
 RUN apt-get -y install nginx nginx-full && \
-    apt-get -y install php5-fpm php5-mysqlnd php5-curl php5-gd php5-mcrypt php5-tidy php5-mongo php5-gearman php5-cli php5-gmp php5-geoip php5-ldap pwgen
+    apt-get -y install php5-fpm php5-mysqlnd php5-curl php5-gd php5-mcrypt php5-tidy php5-mongo php5-gearman php5-cli php5-gmp php5-geoip php5-ldap php5-common
 RUN apt-get -y install supervisor
 RUN phpenmod mcrypt
 
