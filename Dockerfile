@@ -10,10 +10,22 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     apt-get upgrade -y
 RUN apt-get -y install software-properties-common
-RUN apt-get -y install nginx nginx-full && \
-    apt-get -y install php5-fpm php5-mysqlnd php5-curl php5-gd php5-mcrypt php5-tidy php5-mongo php5-gearman php5-cli php5-gmp php5-geoip php5-ldap php5-common
+RUN apt-get -y install nginx nginx-full
+RUN apt-get -y install php5-fpm \
+                       php5-mysqlnd \
+                       php5-curl \
+                       php5-gd \
+                       php5-mcrypt \
+                       php5-tidy \
+                       php5-mongo \
+                       php5-gearman \
+                       php5-cli \
+                       php5-gmp \
+                       php5-geoip \
+                       php5-ldap \
+                       php5-common
 RUN apt-get -y install supervisor
-RUN phpenmod mcrypt
+RUN php5enmod mcrypt
 
 # Remove and clean
 RUN apt-get remove --purge -y software-properties-common && \
